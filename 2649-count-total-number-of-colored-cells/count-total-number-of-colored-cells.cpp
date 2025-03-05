@@ -1,14 +1,12 @@
 class Solution {
 public:
-    long long maths(int n)
-    {
+    long long coloredCells(int n) {
         if(n==1)
         return 1;
-
-        return 4*(n-1)+maths(n-1);
-    }
-    long long coloredCells(int n) {
-        long long ans=maths(n);
+        long long ans=1;
+        for(int i=2;i<=n;i++){
+            ans+=(4*(i-1));
+        }
         return ans;
     }
 };
