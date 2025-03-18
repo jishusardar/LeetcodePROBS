@@ -11,23 +11,9 @@
  */
 class Solution {
 public:
-    void count(TreeNode* root,int n,int &m)
-    {
-        if(!root->left&&!root->right){
-            m=max(n,m);
-            n--;
-            return;
-        }
-        if(root->left)
-        count(root->left,n+1,m);
-        if(root->right)
-        count(root->right,n+1,m);
-    } 
     int maxDepth(TreeNode* root) {
         if(!root)
         return 0;
-        int m=0;
-        count(root,1,m);
-        return m;
+        return 1+max(maxDepth(root->left),maxDepth(root->right));
     }
 };
