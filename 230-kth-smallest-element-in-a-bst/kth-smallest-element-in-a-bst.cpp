@@ -13,7 +13,7 @@ class Solution {
 public:
     void finds(TreeNode* root,int &k,int &ans)
     {
-        if(!root)
+        if(!root||k<0)
         return;
         finds(root->left,k,ans);
         k--;
