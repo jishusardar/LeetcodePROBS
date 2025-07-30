@@ -10,18 +10,18 @@
  * };
  */
 class Solution {
-public: 
-    TreeNode* CreateBST(vector<int>&nums,int &index,int lower,int upper)
+public:
+    TreeNode* construct(vector<int>&pre,int &index,int lower,int higher)
     {
-        if(index==nums.size()||nums[index]<lower||nums[index]>upper)
+        if(index==pre.size()||pre[index]<lower||pre[index]>higher)
         return NULL;
-        TreeNode* root=new TreeNode(nums[index++]);
-        root->left=CreateBST(nums,index,lower,root->val);
-        root->right=CreateBST(nums,index,root->val,upper);
+        TreeNode* root=new TreeNode(pre[index++]);
+        root->left=construct(pre,index,lower,root->val);
+        root->right=construct(pre,index,root->val,higher);
         return root;
     }
     TreeNode* bstFromPreorder(vector<int>& preorder) {
         int index=0;
-        return CreateBST(preorder,index,INT_MIN,INT_MAX);
+        return construct(preorder,index,INT_MIN,INT_MAX);
     }
 };
