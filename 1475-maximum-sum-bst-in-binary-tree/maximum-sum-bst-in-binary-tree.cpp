@@ -9,47 +9,78 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-class Box
-{
-    public:
-    bool BST;
-    int sum;
-    int min;
-    int max;
-    Box()
-    {
-        BST=1;
-        sum=0;
-        min=INT_MAX;
-        max=INT_MIN;
-    }
-};
 class Solution {
 public:
-    Box* find(TreeNode* root,int &ans)
+    class Box
     {
-        if(!root){
-            return new Box;
-        }
-        Box* lefth=find(root->left,ans);
-        Box* righth=find(root->right,ans);
-        if(lefth->BST&&righth->BST&&lefth->max<root->val&&righth->min>root->val)
+        public:
+        bool BST;
+        int sum;
+        int min;
+        int max;
+        Box(int data)
         {
-            Box* head=new Box;
-            head->sum+=lefth->sum+righth->sum+root->val;
-            head->min=min(lefth->min,root->val);
-            head->max=max(righth->max,root->val);
-            ans=max(ans,head->sum);
+            BST=1;
+            sum=data;
+            min=data;
+            max=data;
+        }
+    };
+    Box* find(TreeNode* root,int &sum)
+    {
+        if(!root->left&&!root->right){
+            Box* head=new Box(root->val);
+            sum=max(sum,head->sum);
             return head;
         }
+        else if(root->left&&!root->right){
+            Box* temp=find(root->left,sum);
+            if(temp->BST&&root->val>temp->max){
+                Box* head=new Box(root->val);
+                head->sum+=temp->sum;
+                sum=max(sum,head->sum);
+                head->min=temp->min;
+                return head;
+            }
+            else{
+                temp->BST=0;
+                return temp;
+            }
+        }
+        else if(root->right&&!root->left){
+            Box* temp=find(root->right,sum);
+            if(temp->BST&&temp->min>root->val){
+                Box* head=new Box(root->val);
+                head->sum+=temp->sum;
+                sum=max(sum,head->sum);
+                head->max=temp->max;
+                return head;
+            }
+            else{
+                temp->BST=0;
+                return temp;
+            }
+        }
         else{
-            lefth->BST=0;
-            return lefth;
+            Box* lefthead=find(root->left,sum);
+            Box* righthead=find(root->right,sum);
+            if(lefthead->BST&&righthead->BST&&lefthead->max<root->val&&righthead->min>root->val){
+                Box* head=new Box(root->val);
+                head->sum+=lefthead->sum+righthead->sum;
+                sum=max(sum,head->sum);
+                head->min=lefthead->min;
+                head->max=righthead->max;
+                return head;
+            }
+            else{
+                lefthead->BST=0;
+                return lefthead;
+            }
         }
     }
     int maxSumBST(TreeNode* root) {
-        int ans=0;
-        find(root,ans);
-        return ans;
+        int sum=0;
+        find(root,sum);
+        return sum;
     }
 };
