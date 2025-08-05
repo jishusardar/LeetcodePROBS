@@ -3,7 +3,6 @@ public:
     int numOfUnplacedFruits(vector<int>& fruits, vector<int>& baskets) {
         vector<bool>isfull(baskets.size(),0);
       int count=fruits.size();
-      int i=0,j=0;
       for(int i=0;i<fruits.size();i++){
         int fsize=fruits[i];
         for(int j=0;j<baskets.size();j++){
