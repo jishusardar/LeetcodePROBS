@@ -14,6 +14,7 @@ public:
             if(mm[rem])
             total+=mm[rem];
             mm[rem]++;
+            
         }
         return total;
     }
