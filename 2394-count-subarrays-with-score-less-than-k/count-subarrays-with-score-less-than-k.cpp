@@ -6,19 +6,15 @@ public:
         while(end<nums.size()){
             sum+=nums[end];
             pos=end-start+1;
-            if(pos!=0&&pos!=1)
             sum*=pos;
             while(sum>=k&&start<=end){
-                pos=end-start+1;
-                if(pos!=0&&pos!=1)
                 sum/=pos;
                 sum-=nums[start];
                 start++;
-                pos=(end-start+1);
+                pos--;
                 if(pos!=0&&pos!=1)
                 sum*=pos;
             }
-            pos=end-start+1;
             if(pos!=0&&pos!=1)
             sum/=pos;
             if(pos!=0)
