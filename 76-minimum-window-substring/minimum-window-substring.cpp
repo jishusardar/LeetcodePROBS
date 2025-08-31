@@ -1,21 +1,19 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        int start=0,end=0,count=0;
-        vector<int>mm(256,0);
+        int start=0,end=0,len=INT_MAX,index=-1;
+        unordered_map<char,int>mm;
         for(int i=0;i<t.size();i++){
             mm[t[i]]++;
         }
-        int len=INT_MAX;
-        int index=-1;
-        count=t.size();
+        int count=t.size();
         while(end<s.size()){
             mm[s[end]]--;
             if(mm[s[end]]>=0)
             count--;
             while(count==0&&start<=end){
                 if(len>(end-start+1)){
-                    len=end-start+1;
+                    len=(end-start+1);
                     index=start;
                 }
                 mm[s[start]]++;
@@ -27,11 +25,10 @@ public:
         }
         if(index==-1)
         return "";
-        string str="";
+        string ans="";
         for(int i=index;i<index+len;i++){
-            str+=s[i];
+            ans+=s[i];
         }
-        return str;
-
+        return ans;
     }
 };
