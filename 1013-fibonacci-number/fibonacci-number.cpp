@@ -12,7 +12,7 @@ public:
         return dp[n-1]+dp[n-2];
     }
     int fib(int n) {
-        vector<int>dp(n,-1);
+        vector<int>dp(n+1,-1);
         return solve(n,dp);
     }
 };
