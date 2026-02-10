@@ -1,17 +1,22 @@
 class Solution {
 public:
-    int find(int index,int amount,int n,vector<int>&coins,vector<vector<int>>&dp){
+    int find(int n,int amount,vector<int>&coins,vector<vector<int>>&dp){
         if(amount==0)
         return 1;
-        if(index>=n||amount<0)
+        if(n<0)
         return 0;
-        if(dp[index][amount]!=-1)
-        return dp[index][amount];
-        return dp[index][amount]=find(index,amount-coins[index],n,coins,dp)+find(index+1,amount,n,coins,dp);
+
+        if(dp[n][amount]!=-1)
+        return dp[n][amount];
+
+        if(coins[n]>amount)
+        return dp[n][amount]=find(n-1,amount,coins,dp);
+        else
+        return dp[n][amount]=find(n,amount-coins[n],coins,dp)+find(n-1,amount,coins,dp);
     }
     int change(int amount, vector<int>& coins) {
         int n=coins.size();
         vector<vector<int>>dp(n+1,vector<int>(amount+1,-1));
-        return find(0,amount,n,coins,dp);
+        return find(n-1,amount,coins,dp);
     }
 };
