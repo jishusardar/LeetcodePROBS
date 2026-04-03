@@ -11,7 +11,7 @@ public:
         if(nums.size()==1)
         return nums[0];
         int n=nums.size();
-        vector<int>dp1(n+2,-1);
+        vector<int>dp1(n+1,-1);
         vector<int>dp2(n+2,-1);
         return max(find(0,n-1,nums,dp1),find(1,n,nums,dp2));
     }
